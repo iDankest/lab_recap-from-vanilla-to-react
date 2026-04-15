@@ -4,7 +4,7 @@ body {
   text-align: center;
 }
 
-#user-list-container {
+.user-list-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;

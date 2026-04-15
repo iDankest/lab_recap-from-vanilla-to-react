@@ -14,13 +14,18 @@ function App() {
     try {
        const response = await fetch(API);
         const jsonData = await response.json();
+        setUsers(prev => [...prev, ...jsonData.users]);
+
     } catch (error) {
-      
+      console.error(error)
     } finally {
       setLoading(false);
     }
  }
 
+ useEffect(() => {{
+  fetchUser();
+ }}, []);
 
   return (
     <>
@@ -29,9 +34,20 @@ function App() {
       <h1>User Profiles</h1>
     </header>
     <main>
-      <div id="user-list-container">
+      <div className="user-list-container">
+        {users.map((user) =>(
+          <div key={user.key} className='user-card'>
+            <img src={user.image} alt="user.firstName" />
+            <p>
+              {user.firstName} {user.lastName}
+            </p>
+
+          </div>
+        ))}
       </div>
-      <button id="load-more-btn">Load More</button>
+      <button id="load-more-btn" onClick={fetchUser} disabled={loading}>
+        {loading ? "loading..." : "Load More"}
+        </button>
     </main>
     </div>
     </>
